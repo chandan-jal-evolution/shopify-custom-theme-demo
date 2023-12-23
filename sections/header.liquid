@@ -1,0 +1,42 @@
+<header class="header">
+  <h1>{{ shop.name }}</h1>
+
+  <ul>
+    {% for link in linklists.main-menu.links -%}
+      <li>{{ link.title | link_to: link.url }}</li>
+    {%- endfor %}
+  </ul>
+
+  {% if section.settings.show_search %}
+    <form action="/search">
+      <input type="search" name="q">
+      <input type="submit" value="Search">
+    </form>
+  {% endif %}
+</header>
+
+{% style %}
+  .header {
+    padding: 2em;
+    background-color: {{ section.settings.bg }};
+    color: {{ section.settings.text_color }};
+  }
+{% endstyle %}
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_search",
+        "label": "Show Search Bar?",
+        "default": true
+      }, {
+        "type": "color",
+        "id": "bg",
+        "label": "Background Color"
+      }
+    ]
+  }
+{% endschema %}
